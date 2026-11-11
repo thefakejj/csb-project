@@ -18,8 +18,25 @@ class File(models.Model):
 	data = models.FileField(upload_to=user_directory_path)
 
 # https://stackoverflow.com/questions/37618473/how-can-i-log-both-successful-and-failed-login-and-logout-attempts-in-django
-class Logs(models.Model):
+class Log(models.Model):
       action = models.CharField(max_length=64)
       username = models.CharField(max_length=64, null=True)
       ip = models.GenericIPAddressField(null=True)
-      time = asctime(gmtime) # saves the time of the log in this form: "Sun Jun 20 23:21:05 1993" (python docs)
+      time = models.CharField(max_length=256, null=True) # saves the time of the log in this form: "Sun Jun 20 23:21:05 1993" (python docs)
+
+
+@receiver(user_logged_in)
+def user_logged_in_callback(sender, request, user, **kwargs):  
+    ip = request.META.get('REMOTE_ADDR')
+    Log.objects.create(action='user_logged_in', ip=ip, username=user.username, time=asctime(gmtime()))
+
+
+@receiver(user_logged_out)
+def user_logged_out_callback(sender, request, user, **kwargs):  
+    ip = request.META.get('REMOTE_ADDR')
+    Log.objects.create(action='user_logged_out', ip=ip, username=user.username, time=asctime(gmtime()))
+
+
+@receiver(user_login_failed)
+def user_login_failed_callback(sender, credentials, **kwargs):
+    Log.objects.create(action='user_login_failed', username=credentials.get('username', None), time=asctime(gmtime()))

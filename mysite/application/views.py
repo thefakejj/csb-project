@@ -47,20 +47,10 @@ def addView(request):
 
 @login_required
 def homePageView(request):
-	notes = getNotes(request.user.username)
-
-	return render(request, 'index.html', {'notes': notes})
-	return HttpResponse("Nyt on yvä")
 	files = File.objects.filter(owner=request.user)
-	# print(files)
-	# for f in files:
-	# 	print(f)
-	# 	print(f.data)
-	# 	print(f.data.name)
-	# 	print(f.data.name.split("/"))
-	# 	print(f.id)
 	uploads = [{'id': f.id, 'name': f.data.name.split('/')[-1]} for f in files]	
-	return render(request, 'index.html', {'uploads': uploads})
+	notes = getNotes(request.user.username)
+	return render(request, 'index.html', {'notes': notes, 'uploads': uploads})
 
 
 def getNotes(user_id):

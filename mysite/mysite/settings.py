@@ -86,7 +86,7 @@ DATABASES = {
     }
 }
 
-# PASSWORD HASHING, THIS IS DEFAULT. I NEED TO MAKE ONE THAT SAVES THE PASSWORD IN DATABASE IN PLAINTEXT
+# NoHashingHasher will save the passwords as plain text. Comment this entire list to revert to default password hashers.
 PASSWORD_HASHERS = [
     'mysite.hashers.no_hashing_hasher.NoHashingHasher',
     'django.contrib.auth.hashers.PBKDF2PasswordHasher',

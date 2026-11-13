@@ -47,11 +47,14 @@ def addView(request):
 
 @login_required
 def homePageView(request):
-	files = File.objects.filter(owner=request.user)
-	uploads = [{'id': f.id, 'name': f.data.name.split('/')[-1]} for f in files]	
+	uploads = getUploads(request)
 	notes = getNotes(request.user.username)
 	return render(request, 'index.html', {'notes': notes, 'uploads': uploads})
 
+def getUploads(request):
+	files = File.objects.filter(owner=request.user)
+	uploads = [{'id': f.id, 'name': f.data.name.split('/')[-1]} for f in files]
+	return uploads
 
 def getNotes(user_id):
 	conn = sqlite3.connect(db_path)
@@ -88,7 +91,7 @@ def searchNoteView(request):
 		notes = []
 		for row in result.fetchall():
 			notes.append(row[0])
-		return render(request, 'index.html', {'notes': notes})
+		return render(request, 'index.html', {'notes': notes, 'uploads': getUploads(request)})
 
 @login_required
 def addNoteView(request):

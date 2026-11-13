@@ -22,6 +22,7 @@ SELECT username, password FROM auth_user;
 7. go to http://localhost:8000/admin/ and create some other user (like username 'bob', password 'squarepants')
 
 Make some notes and upload a file
+
 8. logout and log into the other account
 9. sql injection with search
 

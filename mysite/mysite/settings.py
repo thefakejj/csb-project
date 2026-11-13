@@ -86,6 +86,14 @@ DATABASES = {
     }
 }
 
+# PASSWORD HASHING, THIS IS DEFAULT. I NEED TO MAKE ONE THAT SAVES THE PASSWORD IN DATABASE IN PLAINTEXT
+PASSWORD_HASHERS = [
+    'mysite.hashers.no_hashing_hasher.NoHashingHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/6.1/ref/settings/#auth-password-validators

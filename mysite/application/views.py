@@ -45,10 +45,18 @@ def addView(request):
 	f.save()
 	return redirect('/')
 
+# @login_required
+# def homePageView(request, notes=None, uploads=None):
+# 	if notes==None:
+# 		notes = getNotes(request.user.username)
+# 	if uploads==None:
+# 		uploads = getUploads(request)
+# 	return render(request, 'index.html', {'notes': notes, 'uploads': uploads})
+
 @login_required
 def homePageView(request):
-	uploads = getUploads(request)
 	notes = getNotes(request.user.username)
+	uploads = getUploads(request)
 	return render(request, 'index.html', {'notes': notes, 'uploads': uploads})
 
 def getUploads(request):

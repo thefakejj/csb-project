@@ -7,6 +7,7 @@ The use of sqlite3 as mentioned in step 5 is not necessary but you have to have 
 1. git clone https://github.com/thefakejj/csb-project.git
 
 cd csb-project (go to the project folder)
+
 2. ~/[your_venv_path]/python mysite/manage.py makemigrations
 3. ~/[your_venv_path]/python mysite/manage.py migrate
 4. ~/[your_venv_path]/python mysite/create_or_reset_notes_table.py
